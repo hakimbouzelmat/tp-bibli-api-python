@@ -1,22 +1,17 @@
-# IMPORTS
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.core.database import SessionLocal
 from app.domain.books.book_model import Book
-from app.domain.books.book_schema import BookCreate
+from app.domain.books.book_shema import BookCreate
 from app.domain.books.book_repository import get_book_by_isbn
 from app.domain.books.book_rules import can_delete_book
 
-
-# ROUTER FASTAPI
 router = APIRouter(
     prefix="/books",
     tags=["Books"]
 )
 
-
-# DÉPENDANCE BASE DE DONNÉES
 def get_db():
     db = SessionLocal()
     try:
@@ -24,8 +19,6 @@ def get_db():
     finally:
         db.close()
 
-
-# Ajouter d'un livre
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def create_book(book: BookCreate, db: Session = Depends(get_db)):
     existing = get_book_by_isbn(db, book.isbn)
@@ -42,14 +35,10 @@ def create_book(book: BookCreate, db: Session = Depends(get_db)):
 
     return new_book
 
-
-# Lister les livres
 @router.get("/")
 def list_books(db: Session = Depends(get_db)):
     return db.query(Book).all()
 
-
-# Obtenir un livre par ID
 @router.get("/{book_id}")
 def get_book(book_id: int, db: Session = Depends(get_db)):
     book = db.query(Book).get(book_id)
@@ -60,8 +49,6 @@ def get_book(book_id: int, db: Session = Depends(get_db)):
         )
     return book
 
-
-# Supprimer un livre
 @router.delete("/{book_id}")
 def delete_book(book_id: int, db: Session = Depends(get_db)):
     book = db.query(Book).get(book_id)
@@ -71,7 +58,7 @@ def delete_book(book_id: int, db: Session = Depends(get_db)):
             detail="Livre introuvable"
         )
 
-    has_active_loans = False  # Phase 3
+    has_active_loans = False  
     if not can_delete_book(has_active_loans):
         raise HTTPException(
             status_code=400,
