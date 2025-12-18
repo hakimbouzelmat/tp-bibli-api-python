@@ -1,0 +1,112 @@
+PYTHON / API
+
+INTRODUCTION
+
+Langage polyvalent et populaire
+Ecosystème riche et mature
+Syntaxe claire et lisible
+Utilisé dans la data, le web, le devons et dans l’IA qui est en plein développement
+
+Définition des fonctions : fonctions simples, paramètres par défaut, argument nommées, plusieurs retours.
+
+(Module)
+
+Entiers/Flottants/Chaines(strg)/Booléens/None
+
+Ducktyping/Truthiness et none
+
+Tuples : Un tuple est une collection ordonnée de valeurs, souvent immuable (non modifiable).
+
+Slicing avancé et générateurs : Le slicing permet d’extraire une portion d’une séquence (liste, tuple, string).
+
+Sets (utilises pour éliminer les doublons et effectue des opérations ensemblistes)
+
+REST : REST est un style d’architecture utilisé pour concevoir des API web.
+Chaque requête est indépendante :
+le serveur ne garde pas l’état du client
+toutes les infos sont dans la requête (token, headers…)
+
+URI : Une URI (Uniform Resource Identifier) est une chaîne de caractères qui identifie une ressource de façon unique sur un réseau (souvent le web).
+
+Code statut http
+
+Création api standard python standard rest
+
+fastAPI : framework Python moderne pour créer des API REST rapides, robustes et bien typées.
+
+POO Python et base de données jour 2
+
+Python : Langage orienté objet 
+
+
+Classes : 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+En Python, une classe est une structure de programmation qui sert à définir un type d’objet. Elle regroupe des données (appelées attributs) et des comportements (appelés méthodes) au même endroit.
+Une classe est donc un modèle (ou plan) à partir duquel on peut créer plusieurs objets similaires, mais indépendants les uns des autres.
+
+
+
+
+
+Définition d’un constructeur en Python
+Un constructeur est une méthode spéciale d’une classe qui est appelée automatiquement au moment où un objet est créé à partir de cette classe.
+Son rôle principal est :
+d’initialiser l’objet
+de donner des valeurs de départ à ses attributs
+En Python, le constructeur s’appelle toujours : __init__
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Définition de l’héritage en Python
+L’héritage est un mécanisme de la programmation orientée objet (POO) qui permet de créer une nouvelle classe à partir d’une classe existante.
+La nouvelle classe :
+hérite des attributs
+hérite des méthodes de la classe parent (appelée classe mère ou superclasse).
+Elle peut :
+ajouter de nouvelles fonctionnalités
+modifier le comportement existant
+
+
+Midlle ware : En API, un middleware est un composant intermédiaire qui s’exécute entre la requête du client et la réponse du serveur. Un middleware est une fonction qui intercepte, analyse, modifie ou bloque une requête ou une réponse avant qu’elle n’atteigne sa destination finale.
+Trycatch : Un try-catch est un mécanisme de gestion des erreurs (exceptions) en programmation.
+Définition simpleIl permet d’essayer d’exécuter du code (try) et d’attraper une erreur (catch) si elle se produit, sans faire planter le programme.
+
+
+Rapport fin d’année : 
+Présenter le parcours avec un zoom sur la 3 année. Progression technique mais surtout humain. Implication
+Présentation de l’entreprise -> Travail qui a été fait tout au long de l’année + ambition future.
+Méthodologie de rendu de projet de l’entreprise à présenter
+Oral + rendu de rapport
+30/50 pages
+Oral de 30min avec 15min de question
+Problématique à présenter dont la réponse est le parcours de l’étudiant
