@@ -1,16 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-
+from app.domain.books import book_schema, book_repository
 from app.core.database import SessionLocal
-from app.domain.books.book_model import Book
-from app.domain.books.book_shema import BookCreate
-from app.domain.books.book_repository import get_book_by_isbn
-from app.domain.books.book_rules import can_delete_book
 
-router = APIRouter(
-    prefix="/books",
-    tags=["Books"]
-)
+router = APIRouter()
 
 def get_db():
     db = SessionLocal()
@@ -19,50 +12,13 @@ def get_db():
     finally:
         db.close()
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
-def create_book(book: BookCreate, db: Session = Depends(get_db)):
-    existing = get_book_by_isbn(db, book.isbn)
-    if existing:
-        raise HTTPException(
-            status_code=400,
-            detail="ISBN déjà existant"
-        )
+@router.post("/", response_model=book_schema.Book)
+def create_book(book: book_schema.BookCreate, db: Session = Depends(get_db)):
+    return book_repository.create_book(db=db, book=book)
 
-    new_book = Book(**book.dict())
-    db.add(new_book)
-    db.commit()
-    db.refresh(new_book)
-
-    return new_book
-
-@router.get("/")
-def list_books(db: Session = Depends(get_db)):
-    return db.query(Book).all()
-
-@router.get("/{book_id}")
-def get_book(book_id: int, db: Session = Depends(get_db)):
-    book = db.query(Book).get(book_id)
-    if not book:
-        raise HTTPException(
-            status_code=404,
-            detail="Livre introuvable"
-        )
-    return book
-
-@router.delete("/{book_id}")
-def delete_book(book_id: int, db: Session = Depends(get_db)):
-    book = db.query(Book).get(book_id)
-    if not book:
-        raise HTTPException(
-            status_code=404,
-            detail="Livre introuvable"
-        )
-
-    has_active_loans = False  
-    if not can_delete_book(has_active_loans):
-        raise HTTPException(
-            status_code=400,
-            detail="Livre avec emprunt actif"
-        )
-
-    db.delete(book)
+@router.get("/{book_id}", response_model=book_schema.Book)
+def read_book(book_id: int, db: Session = Depends(get_db)):
+    db_book = book_repository.get_book(db, book_id=book_id)
+    if db_book is None:
+        raise HTTPException(status_code=404, detail="Book not found")
+    return db_book
